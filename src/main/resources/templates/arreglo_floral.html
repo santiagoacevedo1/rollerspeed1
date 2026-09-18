@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Arreglos Florales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/floristeria}">Floristeria</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#floristeriaNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="floristeriaNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/floristeria/tipo-flor}">Tipo de Flor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/floristeria/arreglo-floral}">Arreglo Floral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/floristeria/pedido}">Pedido</a>
+                    </li>
+                </ul>
+                <a class="btn btn-outline-light" th:href="@{/home/principal}">Volver al Inicio</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Arreglos Florales</h2>
+            <a th:href="@{/floristeria/arreglo-floral/nuevo}" class="btn btn-success">+ Nuevo Arreglo Floral</a>
+        </div>
+
+        <table class="table table-striped table-hover">
+            <thead class="table-success">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                    <th>Tipo de Flor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="arreglo : ${arreglosFlorales}">
+                    <td th:text="${arreglo.id}"></td>
+                    <td th:text="${arreglo.nombre}"></td>
+                    <td th:text="${arreglo.descripcion}"></td>
+                    <td th:text="'$' + ${arreglo.precio}"></td>
+                    <td th:text="${arreglo.tipoFlor != null} ? ${arreglo.tipoFlor.nombre} : 'N/A'"></td>
+                    <td>
+                        <a th:href="@{/floristeria/arreglo-floral/editar/{id}(id=${arreglo.id})}" class="btn btn-sm btn-warning">Editar</a>
+                        <a th:href="@{/floristeria/arreglo-floral/eliminar/{id}(id=${arreglo.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Estas seguro de eliminar este arreglo floral?')">Eliminar</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(arreglosFlorales)}">
+                    <td colspan="6" class="text-center">No hay arreglos florales registrados.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -13,6 +13,16 @@ public class IndexController {
     public String index() {
         return "index";
     }
+    
+    @GetMapping("/principal")
+    public String principal(){
+        return "principal";
+    }
+
+    @GetMapping("/principal/Alitas")
+    public String Alitas(){
+        return "Alitas";
+    }
 
     
 }
