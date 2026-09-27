@@ -28,4 +28,8 @@ public class TipoFlorService {
     public void eliminar(Long id) {
         tipoFlorRepository.deleteById(id);
     }
+
+    public boolean existePorId(Long id) {
+        return tipoFlorRepository.existsById(id);
+    }
 }

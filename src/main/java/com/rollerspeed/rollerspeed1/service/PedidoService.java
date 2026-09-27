@@ -5,6 +5,7 @@ import com.rollerspeed.rollerspeed1.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -25,7 +26,19 @@ public class PedidoService {
         return pedidoRepository.findById(id).orElse(null);
     }
 
+    public List<Pedido> obtenerPorEstado(String estado) {
+        return pedidoRepository.findByEstado(estado);
+    }
+
+    public List<Pedido> obtenerPorRangoFechas(LocalDate inicio, LocalDate fin) {
+        return pedidoRepository.findByFechaPedidoBetween(inicio, fin);
+    }
+
     public void eliminar(Long id) {
         pedidoRepository.deleteById(id);
+    }
+
+    public boolean existePorId(Long id) {
+        return pedidoRepository.existsById(id);
     }
 }
